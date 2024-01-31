@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useTransition } from "react";
+import { ChangeEvent, useMemo, useState, useTransition } from "react";
 import getProducts from "./Products";
 
 interface Props {
@@ -15,6 +15,24 @@ const Product = ({ name }: Props) => {
   );
 };
 
+const ProductList = ({
+  products,
+  isPending,
+}: {
+  products: string[];
+  isPending: boolean;
+}) => {
+  return (
+    <div className="min-h-full grid grid-cols-4 gap-3 place-items-center">
+      {isPending ? (
+        <p className="w-full text-xl text-center">Updating the list</p>
+      ) : (
+        products.map((product, index) => <Product key={index} name={product} />)
+      )}
+    </div>
+  );
+};
+
 const products = getProducts();
 
 const filteringProduct = (filterConstraint: string) => {
@@ -25,10 +43,13 @@ const filteringProduct = (filterConstraint: string) => {
 
 function App() {
   const [isPending, startTransition] = useTransition();
- 
+
   const [filterConstraint, setFilterConstraint] = useState<string>("");
-  
-  const filteredProducts = filteringProduct(filterConstraint);
+
+  const filteredProducts = useMemo(
+    () => filteringProduct(filterConstraint),
+    [filterConstraint]
+  );
 
   const handleFiltering = (e: ChangeEvent<HTMLInputElement>) => {
     startTransition(() => {
@@ -50,11 +71,7 @@ function App() {
           onChange={handleFiltering}
         />
       </div>
-      <div className="grid grid-cols-4 gap-3">
-        {filteredProducts.map((product, index) => (
-          <Product key={index} name={product} />
-        ))}
-      </div>
+      <ProductList isPending={isPending} products={filteredProducts} />
     </div>
   );
 }
