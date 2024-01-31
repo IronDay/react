@@ -1,6 +1,23 @@
+import getProducts from "./Products";
 
-function App() {
-  
+interface Props {
+  name: string;
 }
 
-export default App
+const Product = ({ name }: Props) => {
+  return <p>{name}</p>;
+};
+
+function App() {
+  const products = getProducts();
+
+  return (
+    <div>
+      {products.map((product,index) => (
+        <Product key={index} name={product} />
+      ))}
+    </div>
+  );
+}
+
+export default App;
