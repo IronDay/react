@@ -42,7 +42,7 @@ const Accordions = ({ accordions }: Props) => {
   const handleClick = (id: string) => {
     setAccs(
       accs.map((accordion) => {
-        if (accordion.id === id) {
+        if (accordion.id === id && !accordion.isActive) {
           return { ...accordion, isActive: true };
         }
         return { ...accordion, isActive: false };
