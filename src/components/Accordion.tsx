@@ -39,7 +39,16 @@ interface Props {
 const Accordions = ({ accordions }: Props) => {
   const [accs, setAccs] = useState(accordions);
 
-  const handleClick = (id: string) => {};
+  const handleClick = (id: string) => {
+    setAccs(
+      accs.map((accordion) => {
+        if (accordion.id === id) {
+          return { ...accordion, isActive: true };
+        }
+        return { ...accordion, isActive: false };
+      }),
+    );
+  };
 
   return (
     <div className="w-[450px] min-h-screen border-2 m-5 border-red-950 p-3 flex flex-col gap-3 rounded-2xl bg-slate-900">
