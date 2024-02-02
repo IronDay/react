@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export interface AccordionProps {
@@ -36,8 +36,25 @@ interface Props {
   }[];
 }
 
-const Accordions = () => {
-  return <div>Accordion</div>;
+const Accordions = ({ accordions }: Props) => {
+  const [accs, setAccs] = useState(accordions);
+
+  const handleClick = (id: string) => {};
+
+  return (
+    <div className="w-[450px] min-h-screen border-2 m-5 border-red-950 p-3 flex flex-col gap-3 rounded-2xl bg-slate-900">
+      {accs.map(({ id, title, content, isActive }, index) => (
+        <Accordion
+          id={id}
+          key={index}
+          isActive={isActive}
+          title={title}
+          content={content}
+          handleClick={handleClick}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Accordions;
