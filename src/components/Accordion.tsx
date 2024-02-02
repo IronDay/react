@@ -27,6 +27,15 @@ export const Accordion = ({
   );
 };
 
+interface Props {
+  accordions: {
+    id: string;
+    title: string;
+    isActive: boolean;
+    content: ReactNode;
+  }[];
+}
+
 const Accordions = () => {
   return <div>Accordion</div>;
 };
