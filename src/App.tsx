@@ -1,3 +1,12 @@
+import LeftSideBar from "./components/LeftSideBar.tsx";
+
+function App() {
+  return <LeftSideBar />;
+}
+
+export default App;
+
+/*
 import { v4 as uuid4 } from "uuid";
 import Accordions from "./components/Accordion.tsx";
 
@@ -83,3 +92,4 @@ function App() {
 }
 
 export default App;
+*/
