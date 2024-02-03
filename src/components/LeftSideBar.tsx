@@ -1,5 +1,6 @@
-const LeftSideBar = () => {
-  return <section>LeftSideBar</section>;
-};
+import { ReactNode } from "react";
 
-export default LeftSideBar;
+interface GroupProps {
+  title: string;
+  children: ReactNode;
+}
