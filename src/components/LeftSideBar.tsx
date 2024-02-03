@@ -13,3 +13,9 @@ const Group = ({ title, children }: GroupProps) => {
     </div>
   );
 };
+
+interface SideBarElementProps {
+  icon: ReactNode;
+  name: string;
+  notification?: number;
+}
