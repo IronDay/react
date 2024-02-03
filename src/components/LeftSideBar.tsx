@@ -19,3 +19,12 @@ interface SideBarElementProps {
   name: string;
   notification?: number;
 }
+
+const SideBarElement = ({ icon, name }: SideBarElementProps) => {
+  return (
+    <div>
+      {icon}
+      <p>{name}</p>
+    </div>
+  );
+};
