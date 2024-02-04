@@ -1,7 +1,12 @@
 import LeftSideBar from "./components/LeftSideBar.tsx";
+import { IconContext } from "react-icons";
 
 function App() {
-  return <LeftSideBar />;
+  return (
+    <IconContext.Provider value={{ size: "17px" }}>
+      <LeftSideBar />
+    </IconContext.Provider>
+  );
 }
 
 export default App;
