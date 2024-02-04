@@ -44,11 +44,19 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
 
 const Plan = () => {
   return (
-    <div>
-      <div>60%</div>
-      <h3>Used capacity</h3>
-      <p>You are already using 60% of your capacity</p>
-      <a>Upgrade plan</a>
+    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3">
+      <div className="w-[50px] h-[50px] flex items-center justify-center rounded-full border border-purple-950">
+        60%
+      </div>
+      <h3 className="font-[roboto] font-bold text-[15px] text-stone-900">
+        Used capacity
+      </h3>
+      <p className="font-[roboto]">
+        You are already using 60% of your capacity
+      </p>
+      <a className="bg-blue-600 py-3 px-5 font-[roboto] text-white text-[13px]">
+        Upgrade plan
+      </a>
     </div>
   );
 };
@@ -89,6 +97,9 @@ const LeftSideBar = () => {
         <SideBarElement icon={<BsInbox />} name={"Inbox"} />
         <SideBarElement icon={<GoPeople />} name={"Couriers"} />
       </Group>
+      <Plan />
+      <SideBarElement icon={<CiSettings />} name="Settings" />
+      <SideBarElement icon={<IoIosHelpCircleOutline />} name={"Help"} />
     </section>
   );
 };
