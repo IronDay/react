@@ -42,6 +42,17 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
   );
 };
 
+const Plan = () => {
+  return (
+    <div>
+      <div>60%</div>
+      <h3>Used capacity</h3>
+      <p>You are already using 60% of your capacity</p>
+      <a>Upgrade plan</a>
+    </div>
+  );
+};
+
 const LeftSideBar = () => {
   const mapElement = new Map<string, SideBarElementProps[]>();
   mapElement.set("Main", [
