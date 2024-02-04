@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { GoHome, GoPeople } from "react-icons/go";
 import { PiCube } from "react-icons/pi";
 import { HiOutlineFolder } from "react-icons/hi";
@@ -29,10 +29,12 @@ interface SideBarElementProps {
 
 const SideBarElement = ({ icon, name }: SideBarElementProps) => {
   return (
-    <div>
+    <a className="flex justify-start items-center p-3 gap-1 cursor-pointer active:bg-purple-100 hover:text-purple-950">
       {icon}
-      <p>{name}</p>
-    </div>
+      <p className="font-[Abel] text-[0.9rem] font-bold text-slate-700">
+        {name}
+      </p>
+    </a>
   );
 };
 
@@ -55,10 +57,12 @@ const LeftSideBar = () => {
 
   return (
     <section>
-      <h2>Storefly</h2>
       <div>
-        <CiSearch />
-        <input type="text" placeholder="Search for anything..." />
+        <h2>Storefly</h2>
+        <div>
+          <CiSearch />
+          <input type="text" placeholder="Search for anything..." />
+        </div>
       </div>
       <Group title={"Main"}>
         <SideBarElement icon={<GoHome />} name={"Home"} />
