@@ -15,7 +15,7 @@ interface GroupProps {
 const Group = ({ title, children }: GroupProps) => {
   return (
     <div>
-      <h3>{title}</h3>
+      <h3 className="font-[roboto] text text-slate-400 px-2">{title}</h3>
       {children}
     </div>
   );
@@ -29,7 +29,11 @@ interface SideBarElementProps {
 
 const SideBarElement = ({ icon, name }: SideBarElementProps) => {
   return (
-    <a className="flex justify-start items-center p-3 gap-1 cursor-pointer active:bg-purple-100 hover:text-purple-950">
+    <a
+      className="flex justify-start items-center p-3 gap-1
+     visited:text-purple-950
+     cursor-pointer active:bg-purple-100 hover:text-purple-950"
+    >
       {icon}
       <p className="font-[Abel] text-[0.9rem] font-bold text-slate-700">
         {name}
