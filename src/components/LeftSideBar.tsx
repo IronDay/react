@@ -44,9 +44,9 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
 
 const Plan = () => {
   return (
-    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3">
+    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3 ml-2 rounded">
       <div className="w-[50px] h-[50px] border border-purple-950 rounded-full flex justify-center items-center">
-        <div className="w-[40px] h-[40px] border border-purple-950 rounded-full flex justify-center items-center">
+        <div className="w-[40px] h-[40px] border border-purple-950 rounded-full flex justify-center items-center font-[roboto] font-bold">
           60%
         </div>
       </div>
@@ -56,7 +56,7 @@ const Plan = () => {
       <p className="font-[roboto]">
         You are already using 60% of your capacity
       </p>
-      <a className="bg-blue-600 py-3 px-5 font-[roboto] text-white text-[14px]">
+      <a className="bg-blue-600 py-3 px-5 font-[roboto] text-white text-[14px] rounded">
         Upgrade plan
       </a>
     </div>
@@ -81,7 +81,7 @@ const LeftSideBar = () => {
   ]);
 
   return (
-    <section>
+    <section className="flex flex-col gap-4">
       <Group>
         <h2 className="ml-2 font-bold text-2xl font-[inter]">Storefly</h2>
         <div className="flex items-center gap-1 bg-purple-200 rounded h-[35px] ml-2 pl-1">
