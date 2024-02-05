@@ -6,6 +6,8 @@ import { CiMap, CiSearch, CiSettings } from "react-icons/ci";
 import { HiOutlineChartPie } from "react-icons/hi2";
 import { BsInbox } from "react-icons/bs";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import { LuLogOut } from "react-icons/lu";
+import react from "../assets/react.svg";
 
 interface GroupProps {
   title?: string;
@@ -63,6 +65,23 @@ const Plan = () => {
   );
 };
 
+const UserProfile = () => {
+  return (
+    <div>
+      <div>
+        <div>
+          <img src={react} alt={"user profile"} />
+        </div>
+        <div>
+          <p>John Doe</p>
+          <p>johndoe@gmail.com</p>
+        </div>
+      </div>
+      <LuLogOut />
+    </div>
+  );
+};
+
 const LeftSideBar = () => {
   const mapElement = new Map<string, SideBarElementProps[]>();
   mapElement.set("Main", [
@@ -106,6 +125,8 @@ const LeftSideBar = () => {
       <Plan />
       <SideBarElement icon={<CiSettings />} name="Settings" />
       <SideBarElement icon={<IoIosHelpCircleOutline />} name={"Help"} />
+      <hr />
+      <UserProfile />
     </section>
   );
 };
