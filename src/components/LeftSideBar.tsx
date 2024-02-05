@@ -45,11 +45,8 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
 const Plan = () => {
   return (
     <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3">
-      <div
-        className="w-[50px] h-[50px] flex items-center justify-center rounded-full text-[12px]
-       font-[roboto] font-bold border-4 border-l-0 border-purple-950"
-      >
-        <div className="w-[50px] h-[50px] flex items-center justify-center border border-purple-300 rounded-full">
+      <div className="w-[50px] h-[50px] border border-purple-950 rounded-full flex justify-center items-center">
+        <div className="w-[40px] h-[40px] border border-purple-950 rounded-full flex justify-center items-center">
           60%
         </div>
       </div>
