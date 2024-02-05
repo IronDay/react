@@ -46,7 +46,7 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
 
 const Plan = () => {
   return (
-    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3 ml-2 rounded">
+    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3 rounded">
       <div className="w-[50px] h-[50px] border border-purple-950 rounded-full flex justify-center items-center">
         <div className="w-[40px] h-[40px] border border-purple-950 rounded-full flex justify-center items-center font-[roboto] font-bold">
           60%
@@ -67,17 +67,19 @@ const Plan = () => {
 
 const UserProfile = () => {
   return (
-    <div>
-      <div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1">
         <div>
           <img src={react} alt={"user profile"} />
         </div>
-        <div>
-          <p>John Doe</p>
-          <p>johndoe@gmail.com</p>
+        <div className="flex flex-col items-start">
+          <p className="font-[inter] font-bold text-slate-950">John Doe</p>
+          <p className="font-[roboto] text-slate-600">johndoe@gmail.com</p>
         </div>
       </div>
-      <LuLogOut />
+      <button>
+        <LuLogOut color="red" />
+      </button>
     </div>
   );
 };
@@ -100,10 +102,10 @@ const LeftSideBar = () => {
   ]);
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4 m-2">
       <Group>
-        <h2 className="ml-2 font-bold text-2xl font-[inter]">Storefly</h2>
-        <div className="flex items-center gap-1 bg-purple-200 rounded h-[35px] ml-2 pl-1">
+        <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
+        <div className="flex items-center gap-1 bg-purple-200 rounded h-[35px] pl-1">
           <CiSearch color="purple" size={20} />
           <input
             className="bg-transparent h-[35px] text-purple-400 outline-0 font-[roboto]"
