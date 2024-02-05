@@ -8,7 +8,7 @@ import { BsInbox } from "react-icons/bs";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 
 interface GroupProps {
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 
@@ -45,8 +45,13 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
 const Plan = () => {
   return (
     <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3">
-      <div className="w-[50px] h-[50px] flex items-center justify-center rounded-full border border-purple-950">
-        60%
+      <div
+        className="w-[50px] h-[50px] flex items-center justify-center rounded-full text-[12px]
+       font-[roboto] font-bold border-4 border-l-0 border-purple-950"
+      >
+        <div className="w-[50px] h-[50px] flex items-center justify-center border border-purple-300 rounded-full">
+          60%
+        </div>
       </div>
       <h3 className="font-[roboto] font-bold text-[15px] text-stone-900">
         Used capacity
@@ -54,7 +59,7 @@ const Plan = () => {
       <p className="font-[roboto]">
         You are already using 60% of your capacity
       </p>
-      <a className="bg-blue-600 py-3 px-5 font-[roboto] text-white text-[13px]">
+      <a className="bg-blue-600 py-3 px-5 font-[roboto] text-white text-[14px]">
         Upgrade plan
       </a>
     </div>
@@ -80,13 +85,17 @@ const LeftSideBar = () => {
 
   return (
     <section>
-      <div>
-        <h2>Storefly</h2>
-        <div>
-          <CiSearch />
-          <input type="text" placeholder="Search for anything..." />
+      <Group>
+        <h2 className="ml-2 font-bold text-2xl font-[inter]">Storefly</h2>
+        <div className="flex items-center gap-1 bg-purple-200 rounded h-[35px] ml-2 pl-1">
+          <CiSearch color="purple" size={20} />
+          <input
+            className="bg-transparent h-[35px] text-purple-400 outline-0 font-[roboto]"
+            type="text"
+            placeholder="Search for anything..."
+          />
         </div>
-      </div>
+      </Group>
       <Group title={"Main"}>
         <SideBarElement icon={<GoHome />} name={"Home"} />
         <SideBarElement icon={<PiCube />} name={"Orders"} />
