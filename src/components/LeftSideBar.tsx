@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { GoHome, GoPeople } from "react-icons/go";
 import { PiCube } from "react-icons/pi";
 import { HiOutlineFolder } from "react-icons/hi";
@@ -94,7 +94,21 @@ const UserProfile = () => {
 };
 
 const LeftSideBar = () => {
-  const mapElement = new Map<string, SideBarElementProps[]>();
+  const mapElement = new Map<string, SideBarElementProps[] | ReactNode>();
+  mapElement.set(
+    "noTitle",
+    <>
+      <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
+      <div className="flex items-center gap-1 bg-slate-200 rounded h-[35px] pl-1">
+        <CiSearch color="purple" size={20} />
+        <input
+          className="bg-transparent h-[35px] text-[13px] text-slate-900 outline-0 font-[roboto]"
+          type="text"
+          placeholder="Search for anything..."
+        />
+      </div>
+    </>,
+  );
   mapElement.set("Main", [
     { icon: <GoHome />, name: "Home" },
     { icon: <PiCube />, name: "Orders" },
@@ -106,38 +120,50 @@ const LeftSideBar = () => {
   mapElement.set("communications", [
     { icon: <BsInbox />, name: "Inbox" },
     { icon: <GoPeople />, name: "Couriers" },
+  ]);
+  mapElement.set("noTitle2", <Plan />);
+
+  mapElement.set("noTitle3", [
     { icon: <CiSettings />, name: "Settings" },
     { icon: <IoIosHelpCircleOutline />, name: "Helps" },
   ]);
 
+  mapElement.set("noTitle4", <hr />);
+  mapElement.set("noTitle5", <UserProfile />);
+
   return (
     <section className="flex flex-col gap-4 m-2">
-      <Group>
-        <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
-        <div className="flex items-center gap-1 bg-slate-200 rounded h-[35px] pl-1">
-          <CiSearch color="purple" size={20} />
-          <input
-            className="bg-transparent h-[35px] text-[13px] text-slate-900 outline-0 font-[roboto]"
-            type="text"
-            placeholder="Search for anything..."
-          />
-        </div>
-      </Group>
-      <Group title={"Main"}>
-        <SideBarElement icon={<GoHome />} name={"Home"} />
-        <SideBarElement icon={<PiCube />} name={"Orders"} />
-        <SideBarElement icon={<CiMap />} name={"Documentation"} />
-        <SideBarElement icon={<HiOutlineChartPie />} name={"Map Overview"} />
-      </Group>
-      <Group title={"Communications"}>
-        <SideBarElement icon={<BsInbox />} name={"Inbox"} />
-        <SideBarElement icon={<GoPeople />} name={"Couriers"} />
-      </Group>
-      <Plan />
-      <SideBarElement icon={<CiSettings />} name="Settings" />
-      <SideBarElement icon={<IoIosHelpCircleOutline />} name={"Help"} />
-      <hr />
-      <UserProfile />
+      {Array.from(mapElement, ([title, children]) => ({ title, children })).map(
+        (element, index) => {
+          if (Array.isArray(element.children)) {
+            return (
+              <Group
+                key={index}
+                title={element.title.includes("noTitle") ? "" : element.title}
+              >
+                {element.children.map((sideElement, index) => (
+                  <SideBarElement
+                    key={index}
+                    icon={sideElement.icon}
+                    name={sideElement.name}
+                  />
+                ))}
+              </Group>
+            );
+          }
+
+          if (React.isValidElement(element.children)) {
+            return (
+              <Group
+                key={index}
+                title={element.title.includes("noTitle") ? "" : element.title}
+              >
+                {element.children}
+              </Group>
+            );
+          }
+        },
+      )}
     </section>
   );
 };
