@@ -36,7 +36,7 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
      cursor-pointer active:bg-purple-100 hover:text-purple-950"
     >
       {icon}
-      <p className="font-[roboto] font-bold text-[12px] text-slate-500">
+      <p className="font-[roboto] font-bold text-[12px] text-slate-500 text-inherit">
         {name}
       </p>
     </a>
