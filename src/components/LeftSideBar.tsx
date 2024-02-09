@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { GoHome, GoPeople } from "react-icons/go";
+import { GoChevronRight, GoHome, GoPeople } from "react-icons/go";
 import { PiCube } from "react-icons/pi";
 import { HiOutlineFolder } from "react-icons/hi";
 import { CiMap, CiSearch, CiSettings } from "react-icons/ci";
@@ -93,12 +93,23 @@ const UserProfile = () => {
   );
 };
 
+const SideBarSwitch = () => {
+  return (
+    <button className="w-[25px] h-[25px] rounded flex justify-center items-center bg-purple-100">
+      <GoChevronRight color="purple" />
+    </button>
+  );
+};
+
 const LeftSideBar = () => {
   const mapElement = new Map<string, SideBarElementProps[] | ReactNode>();
   mapElement.set(
     "noTitle",
     <>
-      <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
+      <div className="w-full flex justify-between items-center">
+        <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
+        <SideBarSwitch />
+      </div>
       <div className="flex items-center gap-1 bg-slate-200 rounded h-[35px] pl-1">
         <CiSearch color="purple" size={20} />
         <input
@@ -132,7 +143,7 @@ const LeftSideBar = () => {
   mapElement.set("noTitle5", <UserProfile />);
 
   return (
-    <section className="flex flex-col gap-4 m-2">
+    <section className="flex flex-col gap-4 m-2 relative">
       {Array.from(mapElement, ([title, children]) => ({ title, children })).map(
         (element, index) => {
           if (Array.isArray(element.children)) {
