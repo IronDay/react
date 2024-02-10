@@ -4,7 +4,7 @@ import { IconContext } from "react-icons";
 function App() {
   return (
     <IconContext.Provider value={{ size: "17px" }}>
-      <div className="w-[250px] border-r border-slate-500">
+      <div className="w-max">
         <LeftSideBar />
       </div>
     </IconContext.Provider>

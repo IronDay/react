@@ -1,22 +1,34 @@
-import React, { ReactNode } from "react";
-import { GoChevronRight, GoHome, GoPeople } from "react-icons/go";
+import React, { ReactNode, useState } from "react";
+import {
+  GoChevronLeft,
+  GoChevronRight,
+  GoHome,
+  GoPeople,
+} from "react-icons/go";
 import { PiCube } from "react-icons/pi";
 import { HiOutlineFolder } from "react-icons/hi";
-import { CiMap, CiSearch, CiSettings } from "react-icons/ci";
+import { CiSearch, CiSettings } from "react-icons/ci";
 import { HiOutlineChartPie } from "react-icons/hi2";
 import { BsInbox } from "react-icons/bs";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
+import { LiaMap } from "react-icons/lia";
 
 interface GroupProps {
   title?: string;
   children: ReactNode;
+  showTitle?: boolean;
+  show?: boolean;
 }
 
-const Group = ({ title, children }: GroupProps) => {
+const Group = ({ title, children, showTitle, show }: GroupProps) => {
   return (
-    <div>
-      <h3 className="font-[roboto] text-[13px] text-slate-400 px-2">{title}</h3>
+    <div className={`${show ? "" : "hidden"} mt-3 mb-3`}>
+      {showTitle && (
+        <h3 className="font-[roboto] text-[13px] text-slate-400 px-2">
+          {title}
+        </h3>
+      )}
       {children}
     </div>
   );
@@ -26,9 +38,10 @@ interface SideBarElementProps {
   icon: ReactNode;
   name: string;
   notification?: number;
+  showText?: boolean;
 }
 
-const SideBarElement = ({ icon, name }: SideBarElementProps) => {
+const SideBarElement = ({ icon, name, showText }: SideBarElementProps) => {
   return (
     <a
       className="flex justify-start items-center p-3 gap-1
@@ -36,16 +49,24 @@ const SideBarElement = ({ icon, name }: SideBarElementProps) => {
      cursor-pointer active:bg-purple-100 hover:text-purple-950"
     >
       {icon}
-      <p className="font-[roboto] font-bold text-[12px] text-slate-500 text-inherit">
-        {name}
-      </p>
+      {showText && (
+        <p className="font-[roboto] font-bold text-[12px] text-slate-500 text-inherit">
+          {name}
+        </p>
+      )}
     </a>
   );
 };
 
-const Plan = () => {
+interface PlanProps {
+  shown?: boolean;
+}
+
+const Plan = ({ shown }: PlanProps) => {
   return (
-    <div className="bg-blue-100 h-[210px] flex flex-col justify-between p-3 rounded">
+    <div
+      className={`bg-blue-100 h-[210px] flex flex-col justify-between p-3 mt-3 mb-3 rounded ${shown ? "" : "hidden"}`}
+    >
       <div className="w-[50px] h-[50px] border border-purple-950 rounded-full flex justify-center items-center">
         <div className="w-[40px] h-[40px] border border-purple-950 rounded-full flex justify-center items-center font-[roboto] font-bold">
           60%
@@ -57,14 +78,14 @@ const Plan = () => {
       <p className="font-[inter] text-slate-800">
         You are already using 60% of your capacity
       </p>
-      <a className="bg-slate-700 text-center py-3 px-5 font-[roboto] text-white text-[13px] rounded">
+      <a className="bg-gradient-to-r from-cyan-500 to-blue-500 text-center py-3 px-5 font-[roboto] text-white text-[13px] rounded">
         Upgrade plan
       </a>
     </div>
   );
 };
 
-const UserProfile = () => {
+const UserProfile = ({ shown }: { shown?: boolean }) => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-1">
@@ -77,7 +98,7 @@ const UserProfile = () => {
             alt={"user profile"}
           />
         </div>
-        <div className="flex flex-col items-start">
+        <div className={`flex flex-col items-start ${shown ? "" : "hidden"}`}>
           <p className="font-[inter] text-[14px] font-bold text-slate-950">
             John Doe
           </p>
@@ -86,74 +107,104 @@ const UserProfile = () => {
           </p>
         </div>
       </div>
-      <button>
+      <button className={`${shown ? "" : "hidden"}`}>
         <LuLogOut color="red" />
       </button>
     </div>
   );
 };
 
-const SideBarSwitch = () => {
+interface SwitchProps {
+  onClick: () => void;
+}
+
+const SideBarSwitch = ({ onClick }: SwitchProps) => {
+  const [shown, setShown] = useState<boolean>();
+  const handleClick = () => {
+    onClick();
+    setShown(!shown);
+  };
   return (
-    <button className="w-[25px] h-[25px] rounded flex justify-center items-center bg-purple-100">
-      <GoChevronRight color="purple" />
+    <button
+      onClick={handleClick}
+      className={`w-[25px] h-[25px] absolute ${shown ? "right-[-20px]" : "right-[-30px]"} rounded flex justify-center items-center bg-purple-100`}
+    >
+      {shown ? (
+        <GoChevronLeft color="purple" />
+      ) : (
+        <GoChevronRight color="purple" />
+      )}
     </button>
   );
 };
 
 const LeftSideBar = () => {
+  const [showText, setShowText] = useState<boolean>();
+
   const mapElement = new Map<string, SideBarElementProps[] | ReactNode>();
-  mapElement.set(
-    "noTitle",
-    <>
-      <div className="w-full flex justify-between items-center">
-        <h2 className="font-bold text-2xl font-[inter]">Storefly</h2>
-        <SideBarSwitch />
-      </div>
-      <div className="flex items-center gap-1 bg-slate-200 rounded h-[35px] pl-1">
-        <CiSearch color="purple" size={20} />
-        <input
-          className="bg-transparent h-[35px] text-[13px] text-slate-900 outline-0 font-[roboto]"
-          type="text"
-          placeholder="Search for anything..."
-        />
-      </div>
-    </>,
-  );
   mapElement.set("Main", [
     { icon: <GoHome />, name: "Home" },
     { icon: <PiCube />, name: "Orders" },
     { icon: <HiOutlineFolder />, name: "Documentation" },
-    { icon: <CiMap />, name: "Map Overview" },
+    { icon: <LiaMap />, name: "Map Overview" },
     { icon: <HiOutlineChartPie />, name: "Statistics" },
   ]);
 
-  mapElement.set("communications", [
+  mapElement.set("Communications", [
     { icon: <BsInbox />, name: "Inbox" },
     { icon: <GoPeople />, name: "Couriers" },
   ]);
   mapElement.set("noTitle2", <Plan />);
 
-  mapElement.set("noTitle3", [
-    { icon: <CiSettings />, name: "Settings" },
-    { icon: <IoIosHelpCircleOutline />, name: "Helps" },
-  ]);
-
-  mapElement.set("noTitle4", <hr />);
-  mapElement.set("noTitle5", <UserProfile />);
-
   return (
-    <section className="flex flex-col gap-4 m-2 relative">
-      {Array.from(mapElement, ([title, children]) => ({ title, children })).map(
-        (element, index) => {
+    <section className="flex flex-col justify-between min-h-[100vh] gap-4 p-2 relative border-r">
+      <div>
+        <SideBarSwitch onClick={() => setShowText(!showText)} />
+        <div
+          className={`flex items-center mb-3 gap-1 ${showText ? "" : "justify-center"}`}
+        >
+          <div className="w-[25px] h-[25px] flex items-center justify-center">
+            <img
+              alt="logo"
+              src={
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ8ITsFzlPJAhivLCGjqwWcDz5_Tq3Fxm_qg&usqp=CAU"
+              }
+            />
+          </div>
+          <h2
+            className={`font-bold text-2xl font-[inter] ${showText ? "" : "hidden"}`}
+          >
+            StoreiFy
+          </h2>
+        </div>
+
+        <div
+          className={`flex items-center ${showText ? "pl-1" : "justify-center items-center"} gap-1 bg-slate-200 rounded h-[35px]`}
+        >
+          <CiSearch color="purple" size={20} />
+          <input
+            className={`bg-transparent w-full h-[35px] text-[13px] text-slate-900 outline-0 font-[roboto] ${showText ? "" : "hidden"}`}
+            type="text"
+            placeholder="Search for anything..."
+          />
+        </div>
+      </div>
+      <div>
+        {Array.from(mapElement, ([title, children]) => ({
+          title,
+          children,
+        })).map((element, index) => {
           if (Array.isArray(element.children)) {
             return (
               <Group
                 key={index}
+                showTitle={showText}
+                show={true}
                 title={element.title.includes("noTitle") ? "" : element.title}
               >
                 {element.children.map((sideElement, index) => (
                   <SideBarElement
+                    showText={showText}
                     key={index}
                     icon={sideElement.icon}
                     name={sideElement.name}
@@ -167,14 +218,37 @@ const LeftSideBar = () => {
             return (
               <Group
                 key={index}
+                show={showText}
+                showTitle={true}
                 title={element.title.includes("noTitle") ? "" : element.title}
               >
                 {element.children}
               </Group>
             );
           }
-        },
-      )}
+        })}
+      </div>
+      <div
+        className={`flex flex-col ${showText ? "" : "justify-center"} gap-3`}
+      >
+        <Plan shown={showText} />
+        <Group show={true}>
+          {[
+            { icon: <CiSettings />, name: "Settings" },
+            { icon: <IoIosHelpCircleOutline />, name: "Helps" },
+          ].map((sideBarElement, index) => (
+            <SideBarElement
+              key={index}
+              showText={showText}
+              icon={sideBarElement.icon}
+              name={sideBarElement.name}
+            />
+          ))}
+        </Group>
+
+        <hr />
+        <UserProfile shown={showText} />
+      </div>
     </section>
   );
 };
