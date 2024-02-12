@@ -1,9 +1,17 @@
-import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useReducer,
+} from "react";
+
 interface State {
   count: number;
 }
 
 type Action = "Increment" | "Decrement";
+
 interface CounterContextProps {
   state: State;
   dispatch: Dispatch<Action>;
@@ -29,3 +37,35 @@ export const CounterProvider = ({ children }: { children: ReactNode }) => {
     </CounterContext.Provider>
   );
 };
+
+const Context = () => {
+  const context = useContext(CounterContext);
+  if (context) {
+    const {
+      state: { count },
+      dispatch,
+    } = context;
+
+    return (
+      <div className=" min-h-[100vh] flex flex-col gap-3 justify-center items-center">
+        <p className="font-[roboto] font-bold">{count}</p>
+        <div className="flex gap-3">
+          <button
+            onClick={() => dispatch("Increment")}
+            className="border border-blue-400 p-3 rounded font-[roboto]"
+          >
+            Increment
+          </button>
+          <button
+            onClick={() => dispatch("Decrement")}
+            className="border border-stone-400 p-3 rounded font-[roboto]"
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
+    );
+  }
+};
+
+export default Context;
