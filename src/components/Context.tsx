@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { createContext, Dispatch } from "react";
 interface State {
   count: number;
 }
@@ -17,3 +17,5 @@ const reducer = (state: State, action: Action) => {
       return { ...state, count: state.count - 1 };
   }
 };
+
+export const CounterContext = createContext<CounterContextProps | null>(null);
