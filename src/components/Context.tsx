@@ -1,4 +1,4 @@
-import { createContext, Dispatch } from "react";
+import { createContext, Dispatch, ReactNode, useReducer } from "react";
 interface State {
   count: number;
 }
@@ -19,3 +19,13 @@ const reducer = (state: State, action: Action) => {
 };
 
 export const CounterContext = createContext<CounterContextProps | null>(null);
+
+export const CounterProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+  return (
+    <CounterContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CounterContext.Provider>
+  );
+};
