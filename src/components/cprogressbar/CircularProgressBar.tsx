@@ -1,10 +1,22 @@
+import React from "react";
+
 type CircularProgressBarProps = {
   progress: number;
   outline: string;
 };
-const CircularProgressBar = () => {
+const CircularProgressBar = ({
+  progress,
+  outline,
+}: CircularProgressBarProps) => {
   return (
-    <div>
+    <div
+      style={
+        {
+          __outline: `${outline}`,
+          __progress: `${progress}`,
+        } as React.CSSProperties
+      }
+    >
       <div>60</div>
     </div>
   );
