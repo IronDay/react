@@ -1,3 +1,7 @@
+type CircularProgressBarProps = {
+  progress: number;
+  outline: string;
+};
 const CircularProgressBar = () => {
   return (
     <div>
