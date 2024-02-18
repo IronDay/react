@@ -1,0 +1,5 @@
+.outer {
+    --outline: purple;
+    --progress: 3%;
+    background: conic-gradient(var(--outline) calc(var(--progress) * 1%), transparent calc(var(--progress) * 1%));
+}
